@@ -1,0 +1,19 @@
+numpy==1.21.5
+pandas==1.4.1
+matplotlib==3.5.1
+scipy~=1.9.1
+scikit_learn==1.0.2
+requests==2.27.1
+jupyter==1.0.0
+
+# ml/dl
+torch==1.10.0+cu113
+torchtext==0.11.0
+# pip3 install torch==1.10.0+cu113 torchvision==0.11.0+cu113 torchaudio===0.10.0+cu113 torchtext==0.11.0 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+
+# transformers
+transformers==4.17.0
+sentence_transformers==2.2.2
+datasets==2.7.0
+
+-r requirements-base.txt

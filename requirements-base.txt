@@ -1,0 +1,5 @@
+unidiff==0.7.3
+sacrebleu==2.0.0
+tqdm==4.62.3
+tree_sitter==0.20.0
+cliffs-delta==1.0.0
