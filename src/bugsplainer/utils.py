@@ -1,5 +1,6 @@
 from argparse import Namespace
 from multiprocessing import Pool
+from typing import List
 
 from torch.utils.data import TensorDataset
 import numpy as np
@@ -48,10 +49,10 @@ def load_and_cache_gen_data(
         else:
             logger.info("Create cache data into %s", cache_fn)
         tuple_examples = [(example, idx, tokenizer, args, split_tag) for idx, example in enumerate(examples)]
-        features = pool.map(
+        features = list(map(
             convert_examples_to_features,
             tqdm(tuple_examples, total=len(tuple_examples), desc='Converting examples to features')
-        )
+        ))
         all_source_ids = torch.tensor([f.source_ids for f in features], dtype=torch.long)
         if split_tag == 'test' or only_src:
             data = TensorDataset(all_source_ids)
@@ -94,7 +95,7 @@ def read_examples(filename, data_num, task, sub_task):
     return read_explain_examples(filename, data_num)
 
 
-def calc_stats(examples, tokenizer=None, is_tokenize=False):
+def calc_stats(examples: List[Example], tokenizer=None, is_tokenize=False):
     percentile_positions = [50, 75, 80, 85, 90, 95]
     src_len = list(map(lambda ex: len(ex.source.split()), examples))
     trg_len = list(map(lambda ex: len(ex.target.split()), examples))

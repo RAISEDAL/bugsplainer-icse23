@@ -126,6 +126,7 @@ def main():
 
         eval_examples, eval_data = load_and_cache_gen_data(args, args.test_filename, pool, tokenizer, 'test',
                                                            only_src=True, is_sample=False)
+        torch.cuda.empty_cache()
         result = eval_bleu_epoch(args, eval_data, eval_examples, model, tokenizer, 'test', 'best-bleu')
         test_bleu, test_em = result['bleu'], result['em']
         test_codebleu = result['codebleu'] if 'codebleu' in result else 0
