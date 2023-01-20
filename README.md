@@ -9,6 +9,7 @@
 - `runs`: contains the output of each run during the replication.
   Each subdirectory is named after the `--desc` parameter discussed below.
 - `scrape_github`: python module we used to scrape bug-fix commits from GitHub.
+  Simply run `python __main__.py` to scrape a new dataset.
 - `src`:
   - `bugsplainer`: necessary scripts for replication
   - `compute_scores_from_explanations.py`: computes BLEU score, Semantic Similarity,
@@ -20,34 +21,39 @@
 - `requirements.txt`: the requirements file for `pip`.
 
 ## Replicate
+In order to replicate our test scores, a [CUDA](https://developer.nvidia.com/cuda-downloads)
+supported GPU with at least 16 GB memory is needed.
+In plain words, any NVIDIA GPU is CUDA supported.
+
 Make sure you have python 3.9, CUDA 11.3 and the latest pip installed on your machine.
 Then, to install `pytorch`, run
 ```shell
-pip install torch==1.10.0+cu113 torchvision==0.11.0+cu113 torchaudio===0.10.0+cu113 torchtext==0.11.0 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+pip install torch==1.10.0+cu113 torchvision==0.11.0+cu113 torchaudio==0.10.0+cu113 torchtext==0.11.0 -f https://download.pytorch.org/whl/cu113/torch_stable.html
 ```
+
+> If you want to run the Bugsplainer in CPU, remove `+cu113` part from all package versions.
+> Note that we do not guaranty a proper replication on CPU as the tensor operations may
+> vary based on CPU architecture. 
 
 Once pytorch is installed, install the remaining packages by running
 ```shell
 pip install -r requirements.txt
 ```
 
+You can run `python -m src.verify_installation` to validate the installation.
+If it executes without any error, then all the necessary packages are installed.
+
 Now, download one or all available model variants and data from 
-[Google Drive](https://drive.google.com/drive/folders/1UvjQsvuJVSBqTVSYShLYlj02RXRfKhqb?usp=sharing).
+[Zenodo](https://zenodo.org/record/7549218).
+Extract the downloaded file `bugsplainer.zip`.
+Then replace the `data` directory of this repository with the extracted `data` directory
+and `models` directory of this repository with the extracted `models` directory.
 
-The model-directory names are in format —
+The subdirectory names inside the `models` directory are in format —
 `{experiment_no}.{task}-{sub_task}-{input_len}-{output_len}-{batch_size}-{model_size}`.
-The mapping from our experiment name to the checkpoint name is as follows.
-
-| RQ  | Experiment                     | Checkpoint                              |
-|-----|--------------------------------|-----------------------------------------|
-| 1   | Bugsplainer                    | 262.finetune-sbt-random-512-64-16-60m   |
-| 1   | Bugsplainer Cross-project      | 264.finetune-sbt-project-512-64-16-60m  |
-| 1   | Bugsplainer 220M               | 268.finetune-sbt-random-512-64-16-220m  |
-| 1   | Bugsplainer 220M Cross-project | 270.finetune-sbt-project-512-64-16-220m |
 
 
-
-To replicate Bugsplainer, run
+Finally, to replicate Bugsplainer, run
 ```shell
 python -m src.bugsplainer \
  --do_test \
@@ -85,6 +91,18 @@ python -m src.bugsplainer ^
  --res_dir=result
 ```
 
+You can replace the name of the model subdirectory for parameter
+`--model_name_or_path` to replicate the score for different experiment.
+The mapping from our experiment name to the checkpoint name is as follows.
+
+| RQ  | Experiment                     | Checkpoint                              |
+|-----|--------------------------------|-----------------------------------------|
+| 1   | Bugsplainer                    | 262.finetune-sbt-random-512-64-16-60m   |
+| 1   | Bugsplainer Cross-project      | 264.finetune-sbt-project-512-64-16-60m  |
+| 1   | Bugsplainer 220M               | 268.finetune-sbt-random-512-64-16-220m  |
+| 1   | Bugsplainer 220M Cross-project | 270.finetune-sbt-project-512-64-16-220m |
+
+
 ### Compute Scores
 
 Once you have the generated explanations, you can compute their metric scores by running
@@ -104,7 +122,7 @@ In RQ3, we report the average score of five such runs with different random init
 
 ### Hyper-parameters
 
-The hyper-parameters used during the experiment are listed below
+The hyperparameters used during the experiment are listed below
 
 
 | Hyper-parameter         | Value  |
@@ -121,5 +139,5 @@ The hyper-parameters used during the experiment are listed below
 | Learning Rate Scheduler | Linear |
 | Warmup Steps            | 100    |
 
-The model-specific hyper-parameters can be found in the config files
-in the `models` directory (download from Google Drive).
+The model-specific hyperparameters can be found in the config files
+in the `models` directory (download from Zenodo).
