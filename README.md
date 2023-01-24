@@ -1,5 +1,8 @@
 # Replication Package of Bugsplainer
 
+[![License](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+<br/>
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
 ## File Structure
 - `data`: contains the data-files
 - `models`: contains the model checkpoints. 
@@ -43,8 +46,8 @@ pip install -r requirements.txt
 You can run `python -m src.verify_installation` to validate the installation.
 If it executes without any error, then all the necessary packages are installed.
 
-Now, download one or all available model variants and data from 
-[Zenodo](https://zenodo.org/record/7549218).
+Now, download one or all available model variants and data from
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7549218.svg)](https://doi.org/10.5281/zenodo.7549218).
 Extract the downloaded file `bugsplainer.zip`.
 Then replace the `data` directory of this repository with the extracted `data` directory
 and `models` directory of this repository with the extracted `models` directory.
