@@ -52,10 +52,6 @@ Extract the downloaded file `bugsplainer.zip`.
 Then replace the `data` directory of this repository with the extracted `data` directory
 and `models` directory of this repository with the extracted `models` directory.
 
-The subdirectory names inside the `models` directory are in format —
-`{experiment_no}.{task}-{sub_task}-{input_len}-{output_len}-{batch_size}-{model_size}`.
-
-
 Finally, to replicate Bugsplainer, run
 ```shell
 python -m src.bugsplainer \
@@ -96,6 +92,10 @@ python -m src.bugsplainer ^
 
 You can replace the name of the model subdirectory for parameter
 `--model_name_or_path` to replicate the score for different experiment.
+I such a case, you also need to change the value of `--sub_task` parameter
+encoded in the subdirectory name.
+The subdirectory names are in format —
+`{experiment_no}.{task}-{sub_task}-{input_len}-{output_len}-{batch_size}-{model_size}`.
 The mapping from our experiment name to the checkpoint name is as follows.
 
 | RQ  | Experiment                     | Checkpoint                              |

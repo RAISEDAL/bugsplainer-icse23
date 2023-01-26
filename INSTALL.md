@@ -1,5 +1,5 @@
 > Disclaimer: All information of this file is also present is README.md.
-> We recommend to follow along solely the README.md file.
+> We recommend to solely follow the README.md file.
 
 In order to replicate our test scores, a [CUDA](https://developer.nvidia.com/cuda-downloads)
 supported GPU with at least 16 GB memory is needed.
