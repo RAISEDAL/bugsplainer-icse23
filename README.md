@@ -1,17 +1,24 @@
 # Replication Package of Bugsplainer
 
-[![License](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
-<br/>
-This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+## Explaining Software Bugs Leveraging Code Structures in Neural Machine Translation
+
+#### Accepted Papers at ICSE 2023
+
+
+> Parvez Mahbub, Ohiduzzaman Shuvo, and M. Masudur Rahman. Explaining Software Bugs Leveraging Code Structures in Neural Machine Translation. In Proceeding of The 45th IEEE/ACM International Conference on Software Engineering (ICSE 2023), pp. 12, Melbourne, Australia, May 2023 (To appear).
+
+## Abstract
+Software bugs claim approximately 50% of development time and cost the global economy billions of dollars. Once a bug is reported, the assigned developer attempts to identify and understand the source code responsible for the bug and then corrects the code. Over the last five decades, there has been significant research on automatically finding or correcting software bugs. However, there has been little research on automatically explaining the bugs to the developers, which is essential but a highly challenging task. In this paper, we propose Bugsplainer, a transformer-based generative model, that generates natural language explanations for software bugs by learning from a large corpus of bug-fix commits. Bugsplainer can leverage structural information and buggy patterns from the source code to generate an explanation for a bug. Our evaluation using three performance metrics shows that Bugsplainer can generate understandable and good explanations according to Google's standard, and can outperform multiple baselines from the literature. We also conduct a developer study involving 20 participants where the explanations from Bugsplainer were found to be more accurate, more precise, more concise and more useful than the baselines.
+
 ## File Structure
 - `data`: contains the data-files
 - `models`: contains the model checkpoints. 
-  Each subdirectory is in format `<checkpoint-name>/output/checkpoint-best-bleu`.
-- `output`: contains sample explanations from Bugsplainer, Bugsplainer 220M
+  Each subdirectory has the format `<checkpoint-name>/output/checkpoint-best-bleu`.
+- `output`: contains sample explanations from Bugsplainer, Bugsplainer 220M,
   and the baselines.
 - `runs`: contains the output of each run during the replication.
   Each subdirectory is named after the `--desc` parameter discussed below.
-- `scrape_github`: python module we used to scrape bug-fix commits from GitHub.
+- `scrape_github`: python module that we used to scrape bug-fix commits from GitHub.
   Simply run `python __main__.py` to scrape a new dataset.
 - `src`:
   - `bugsplainer`: necessary scripts for replication
@@ -92,7 +99,7 @@ python -m src.bugsplainer ^
 
 You can replace the name of the model subdirectory for parameter
 `--model_name_or_path` to replicate the score for different experiment.
-I such a case, you also need to change the value of `--sub_task` parameter
+In such a case, you also need to change the value of `--sub_task` parameter
 encoded in the subdirectory name.
 The subdirectory names are in format —
 `{experiment_no}.{task}-{sub_task}-{input_len}-{output_len}-{batch_size}-{model_size}`.
@@ -144,3 +151,12 @@ The hyperparameters used during the experiment are listed below
 
 The model-specific hyperparameters can be found in the config files
 in the `models` directory (download from Zenodo).
+
+--- 
+[![License](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+<br/>
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+---
+
+> Something not working as expected? Create an issue [here](https://github.com/RAISEDAL/bugsplainer-icse23/issues).
