@@ -24,7 +24,7 @@ You can run `python -m src.verify_installation` to validate the installation.
 If it executes without any error, then all the necessary packages are installed.
 
 Now, download one or all available model variants and data from
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7549218.svg)](https://doi.org/10.5281/zenodo.7549218).
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7636742.svg)](https://doi.org/10.5281/zenodo.7636742).
 Extract the downloaded file `bugsplainer.zip`.
 Then replace the `data` directory of this repository with the extracted `data` directory
 and `models` directory of this repository with the extracted `models` directory.
