@@ -31,9 +31,32 @@ Software bugs claim approximately 50% of development time and cost the global ec
 - `requirements.txt`: the requirements file for `pip`.
 
 ## Replicate
+
+In the following sections, we describe how to replicate the results for our **RQ<sub>1</sub>**.
+
+### Prerequisites
+
+> We recommend using a virtual environment to install the packages and run the application.
+> Learn to use a virtual environment [here](https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/).
+
 In order to replicate our test scores, a [CUDA](https://developer.nvidia.com/cuda-downloads)
-supported GPU with at least 16 GB memory is needed.
+supported GPU with at least 16 GB memory is _recommended_.
 In plain words, any NVIDIA GPU is CUDA supported.
+You can reduce the value of `--eval_batch_size` parameter (discussed in details later)
+to run in a smaller GPU, which increase the execution time.
+
+### Download Dataset and Model Checkpoints
+
+Now, download one or all available model variants and data from
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7636742.svg)](https://doi.org/10.5281/zenodo.7636742).
+Extract the downloaded file `bugsplainer.zip`.
+Then replace the `data` directory of this repository with the extracted `data` directory
+and `models` directory of this repository with the extracted `models` directory.
+
+### Installation
+
+> If you are running on a Linux system, then you can run `./scripts/main.sh`
+> to replicate all the experiments at once.
 
 Make sure you have python 3.9, CUDA 11.3 and the latest pip installed on your machine.
 Then, to install `pytorch`, run
@@ -53,13 +76,12 @@ pip install -r requirements.txt
 You can run `python -m src.verify_installation` to validate the installation.
 If it executes without any error, then all the necessary packages are installed.
 
-Now, download one or all available model variants and data from
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7636742.svg)](https://doi.org/10.5281/zenodo.7636742).
-Extract the downloaded file `bugsplainer.zip`.
-Then replace the `data` directory of this repository with the extracted `data` directory
-and `models` directory of this repository with the extracted `models` directory.
+### Run The Application
 
-Finally, to replicate Bugsplainer, run
+This replication package replicates 4 experiments from our RQ<sub>1</sub>,
+which evaluate Bugsplainer with different automatic metric scores.
+
+To replicate the first experiment of RQ<sub>1</sub>, run
 ```shell
 python -m src.bugsplainer \
  --do_test \
@@ -97,20 +119,20 @@ python -m src.bugsplainer ^
  --res_dir=result
 ```
 
-You can replace the name of the model subdirectory for parameter
-`--model_name_or_path` to replicate the score for different experiment.
-In such a case, you also need to change the value of `--sub_task` parameter
-encoded in the subdirectory name.
+To replicate the remaining experiments, 
+you can replace the name of the model subdirectory for parameter `--model_name_or_path`.
+In such a case, you also need to change the value of `--config_name` and `--sub_task`
+parameters encoded in the subdirectory name.
 The subdirectory names are in format —
 `{experiment_no}.{task}-{sub_task}-{input_len}-{output_len}-{batch_size}-{model_size}`.
 The mapping from our experiment name to the checkpoint name is as follows.
 
-| RQ  | Experiment                     | Checkpoint                              |
-|-----|--------------------------------|-----------------------------------------|
-| 1   | Bugsplainer                    | 262.finetune-sbt-random-512-64-16-60m   |
-| 1   | Bugsplainer Cross-project      | 264.finetune-sbt-project-512-64-16-60m  |
-| 1   | Bugsplainer 220M               | 268.finetune-sbt-random-512-64-16-220m  |
-| 1   | Bugsplainer 220M Cross-project | 270.finetune-sbt-project-512-64-16-220m |
+| RQ  | Experiment                     | Checkpoint                              | BLEU   | Semantic Similarity | Exact Match |
+|-----|--------------------------------|-----------------------------------------|--------|---------------------|-------------|
+| 1   | Bugsplainer                    | 262.finetune-sbt-random-512-64-16-60m   | 33.15  | 55.76               | 22.37       |
+| 1   | Bugsplainer Cross-project      | 264.finetune-sbt-project-512-64-16-60m  | 17.16  | 44.98               | 7.15        |
+| 1   | Bugsplainer 220M               | 268.finetune-sbt-random-512-64-16-220m  | 33.87  | 56.35               | 23.50       |
+| 1   | Bugsplainer 220M Cross-project | 270.finetune-sbt-project-512-64-16-220m | 23.83  | 49.00               | 15.47       |
 
 
 ### Compute Scores
