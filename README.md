@@ -80,6 +80,7 @@ If it executes without any error, then all the necessary packages are installed.
 
 This replication package replicates 4 experiments from our RQ<sub>1</sub>,
 which evaluate Bugsplainer with different automatic metric scores.
+Running each of these experiments takes approximately 30 minutes.
 
 To replicate the first experiment of RQ<sub>1</sub>, run
 ```shell
